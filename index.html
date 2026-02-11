@@ -5,31 +5,31 @@
   <style>
     body {
       text-align: center;
-      font-family: sans-serif;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
       background-color: pink;
       color: darkred;
       overflow-x: hidden;
       height: 100vh;
     }
     h1 {
-      font-size: 3em;
+      font-size: 4em;
       margin-top: 50px;
     }
     button {
-      padding: 15px 30px;
-      font-size: 1.5em;
+      padding: 25px 50px;
+      font-size: 2em;
       background-color: red;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 20px;
       cursor: pointer;
-      margin: 20px;
+      margin: 30px;
       transition: all 0.3s ease;
       position: relative;
     }
     #message {
-      font-size: 1.5em;
-      margin-top: 30px;
+      font-size: 2em;
+      margin-top: 40px;
       color: darkred;
     }
     .heart {
@@ -47,8 +47,8 @@
 <body>
   <h1>💖 Will you be my Valentine? 💖</h1>
   <p id="message">Please, pappi, say yes! 😘</p>
-  <button id="yesBtn" onclick="yesClick()">Yes!</button>
-  <button id="noBtn" onmouseover="noHover()">No...</button>
+  <button id="yesBtn" onclick="yesClick()">Yes! 🧸</button>
+  <button id="noBtn" onmouseover="noHover()">No... 😢</button>
 
   <script>
     const yesBtn = document.getElementById("yesBtn");
@@ -57,22 +57,27 @@
 
     // Make Yes button wiggle continuously
     setInterval(() => {
-      yesBtn.style.transform = `translate(${Math.random()*10-5}px, ${Math.random()*10-5}px) rotate(${Math.random()*10-5}deg)`;
+      yesBtn.style.transform = `translate(${Math.random()*10-5}px, ${Math.random()*10-5}px) rotate(${Math.random()*5-2}deg)`;
     }, 300);
 
     function yesClick() {
-      message.textContent = "Yay! I love you ❤️";
+      message.textContent = "Yay! I love you ❤️🧸";
       spawnHearts(30);
     }
 
     function noHover() {
       // Make Yes button bigger and move randomly
       let size = parseInt(window.getComputedStyle(yesBtn).fontSize);
-      yesBtn.style.fontSize = (size + 3) + "px";
+      yesBtn.style.fontSize = (size + 5) + "px"; // gets bigger each time
+      yesBtn.style.padding = (parseInt(window.getComputedStyle(yesBtn).paddingTop) + 5) + "px " +
+                             (parseInt(window.getComputedStyle(yesBtn).paddingLeft) + 10) + "px";
       yesBtn.style.transform = `translate(${Math.random()*50 - 25}px, ${Math.random()*20 - 10}px) rotate(${Math.random()*10-5}deg)`;
+      
       // Fun message
-      message.textContent = "Please, pappi, say yes! 💖";
-      spawnHearts(5);
+      message.textContent = "Please, pappi, say yes! 💖🧸";
+      
+      // Spawn some hearts
+      spawnHearts(7);
     }
 
     function spawnHearts(count) {
