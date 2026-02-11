@@ -8,6 +8,8 @@
       font-family: sans-serif;
       background-color: pink;
       color: darkred;
+      overflow-x: hidden;
+      height: 100vh;
     }
     h1 {
       font-size: 3em;
@@ -15,22 +17,78 @@
     }
     button {
       padding: 15px 30px;
-      font-size: 1.2em;
+      font-size: 1.5em;
       background-color: red;
       color: white;
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      margin-top: 20px;
+      margin: 20px;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    button:hover {
-      background-color: darkred;
+    #message {
+      font-size: 1.5em;
+      margin-top: 30px;
+      color: darkred;
+    }
+    .heart {
+      position: absolute;
+      font-size: 2em;
+      animation: float 3s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity:1; }
+      100% { transform: translateY(-300px) scale(2); opacity:0; }
     }
   </style>
 </head>
 <body>
   <h1>💖 Will you be my Valentine? 💖</h1>
-  <p>Click the button if you say YES!</p>
-  <button onclick="alert('Yay! ❤️')">Yes!</button>
+  <p id="message">Please, pappi, say yes! 😘</p>
+  <button id="yesBtn" onclick="yesClick()">Yes!</button>
+  <button id="noBtn" onmouseover="noHover()">No...</button>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+
+    // Make Yes button wiggle continuously
+    setInterval(() => {
+      yesBtn.style.transform = `translate(${Math.random()*10-5}px, ${Math.random()*10-5}px) rotate(${Math.random()*10-5}deg)`;
+    }, 300);
+
+    function yesClick() {
+      message.textContent = "Yay! I love you ❤️";
+      spawnHearts(30);
+    }
+
+    function noHover() {
+      // Make Yes button bigger and move randomly
+      let size = parseInt(window.getComputedStyle(yesBtn).fontSize);
+      yesBtn.style.fontSize = (size + 3) + "px";
+      yesBtn.style.transform = `translate(${Math.random()*50 - 25}px, ${Math.random()*20 - 10}px) rotate(${Math.random()*10-5}deg)`;
+      // Fun message
+      message.textContent = "Please, pappi, say yes! 💖";
+      spawnHearts(5);
+    }
+
+    function spawnHearts(count) {
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.textContent = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+
+    // Random floating hearts in background every 1 second
+    setInterval(() => spawnHearts(2), 1000);
+  </script>
 </body>
 </html>
